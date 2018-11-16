@@ -7,7 +7,8 @@ import ru.pflb.PageObject;
 
 public class AuthorizationPage extends PageObject {
 
-    public AuthorizationPage(){}
+    public AuthorizationPage(){
+    }
 
     public AuthorizationPage(WebDriver driver){
         super(driver);

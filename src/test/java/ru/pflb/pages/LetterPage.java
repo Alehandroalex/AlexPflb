@@ -7,7 +7,8 @@ import ru.pflb.PageObject;
 
 public class LetterPage extends PageObject {
 
-    public LetterPage(){}
+    public LetterPage(){
+    }
 
     public LetterPage(WebDriver driver){
         super(driver);
