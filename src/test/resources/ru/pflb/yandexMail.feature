@@ -14,7 +14,22 @@ Feature: Testing Yandex mail
   Scenario: Save letter to draft
     And click button draft
     Then recipient should starts with "arendapirojkov"
-    And topic should equals to "Just for test"
+    And topic should starts with "Just for test"
+    And body should starts with "Body of letter"
+    Then open the letter
+    When recipient equals to "arendapirojkov@gmail.com"
+    And topic equals to "Just for test"
+    And body equals to "Body of letter"
+    Then Close letter
+    And delete letter
+
+  Scenario: sending letter
+    When click button send
+    Then appears text "Письмо отправлено"
+    When click button send letters
+    Then recipient should starts with "arendapirojkov"
+    And topic should starts with "Just for test"
     And body should starts with "Body of letter"
     And delete letter
+
 

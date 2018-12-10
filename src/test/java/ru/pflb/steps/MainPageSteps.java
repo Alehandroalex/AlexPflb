@@ -49,8 +49,8 @@ public class MainPageSteps extends BaseStep {
         assertThat(recipient, startsWith(mainPage.recipient.getText()));
     }
 
-    @And("^topic should equals to \"([^\"]*)\"$")
-    public void topicEqualsTo(String topic) throws Throwable{
+    @And("^topic should starts with \"([^\"]*)\"$")
+    public void topicStartsWith(String topic) throws Throwable{
         assertThat(mainPage.topic.getText(), equalTo(topic));
     }
 
