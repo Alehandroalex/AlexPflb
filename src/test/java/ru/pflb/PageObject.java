@@ -7,14 +7,7 @@ public abstract class PageObject {
 
     protected WebDriver driver;
 
-    public PageObject(){
-    }
-
     public PageObject(WebDriver driver){
-        setDriver(driver);
-    }
-
-    public void setDriver(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

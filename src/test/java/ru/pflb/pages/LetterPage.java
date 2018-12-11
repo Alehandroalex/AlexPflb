@@ -7,9 +7,6 @@ import ru.pflb.PageObject;
 
 public class LetterPage extends PageObject {
 
-    public LetterPage(){
-    }
-
     public LetterPage(WebDriver driver){
         super(driver);
     }
@@ -20,7 +17,13 @@ public class LetterPage extends PageObject {
     @FindBy(css = "label.mail-Compose-Field_subject input")
     public WebElement topicField;
 
-    @FindBy(xpath = "//div[@role='textbox']")
+    @FindBy(xpath = "//textarea[@role='textbox']")
     public WebElement bodyOfLetter;
+
+    @FindBy(css = "button.js-send-button")
+    public WebElement sentLetter;
+
+    @FindBy(css = "svg.svgicon-mail--Close")
+    public WebElement closeLetter;
 
 }

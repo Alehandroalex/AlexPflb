@@ -7,9 +7,6 @@ import ru.pflb.PageObject;
 
 public class AuthorizationPage extends PageObject {
 
-    public AuthorizationPage(){
-    }
-
     public AuthorizationPage(WebDriver driver){
         super(driver);
     }
@@ -20,9 +17,10 @@ public class AuthorizationPage extends PageObject {
     @FindBy(name = "login")
     public WebElement loginField;
 
+    @FindBy(xpath = "//span[text()='Войти']")
+    public WebElement enter;
+
     @FindBy(name = "passwd")
     public WebElement passwordField;
 
-    @FindBy(css = "span.passport-Button-Text")
-    public WebElement enterToMail;
 }

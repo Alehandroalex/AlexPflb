@@ -10,9 +10,6 @@ import ru.pflb.PageObject;
 
 public class MainPage extends PageObject {
 
-    public MainPage(){
-    }
-
     public MainPage(WebDriver driver){
         super(driver);
     }
@@ -60,12 +57,12 @@ public class MainPage extends PageObject {
     public WebElement logOut;
 
     public WebElement getWriteLetterButton(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.className("mail" +
-                "-ComposeButton-Text")));
+        return (new WebDriverWait(driver, 30))
+                .until(ExpectedConditions.presenceOfElementLocated(By.className("mail-ComposeButton-Text")));
     }
 
     public WebElement getUserNameElement(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.className("mail" +
-                "-User-Name")));
+        return (new WebDriverWait(driver, 30))
+                .until(ExpectedConditions.presenceOfElementLocated(By.className("mail-User-Name")));
     }
 }

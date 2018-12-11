@@ -7,14 +7,14 @@ import ru.pflb.pages.MainPage;
 
 public class PageObjectManager {
 
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
-    private LetterPage letterPage = new LetterPage();
-    private MainPage mainPage = new MainPage();
+    private AuthorizationPage authorizationPage;
+    private LetterPage letterPage;
+    private MainPage mainPage;
 
     void setDriver(WebDriver driver){
-        this.authorizationPage.setDriver(driver);
-        this.letterPage.setDriver(driver);
-        this.mainPage.setDriver(driver);
+        this.authorizationPage = new AuthorizationPage(driver);
+        this.letterPage = new LetterPage(driver);
+        this.mainPage = new MainPage(driver);
     }
 
     public AuthorizationPage getAuthorizationPage(){
