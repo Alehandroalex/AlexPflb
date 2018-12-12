@@ -54,6 +54,6 @@ public class AuthorizationSteps extends BaseStep {
 
     @Then("^login \"([^\"]*)\" missing on screen$")
     public void loginMissingOnScreen(String arg0) throws Throwable{
-        homePage.toGetMail.isDisplayed();
+        homePage.getToGetMail().isDisplayed();
     }
 }

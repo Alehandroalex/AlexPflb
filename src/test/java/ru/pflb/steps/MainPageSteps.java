@@ -1,10 +1,12 @@
 package ru.pflb.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.pflb.pages.MainPage;
 import ru.pflb.tech.BaseStep;
@@ -29,13 +31,6 @@ public class MainPageSteps extends BaseStep {
     @When("^click button write letter$")
     public void clickButtonWriteLetter() throws Throwable{
         mainPage.getWriteLetterButton().click();
-    }
-
-    @Then("^login \"([^\"]*)\" appears near avatar$")
-    public void loginAppearsNearAvatar(String login) throws Throwable{
-        WebElement userNameElement = mainPage.getUserNameElement();
-        assertThat(userNameElement.isDisplayed(), equalTo(true));
-        assertThat(userNameElement.getText(), equalTo(login));
     }
 
     @And("^click button draft$")
@@ -64,8 +59,8 @@ public class MainPageSteps extends BaseStep {
         assertThat(body, startsWith(mainPage.body.getText()));
     }
 
-    @And("^delete letter$")
-    public void deleteLetter() throws Throwable{
+    @And("^delete the letter$")
+    public void deleteTheLetter() throws Throwable{
         mainPage.checkbox.click();
         mainPage.delete.click();
     }
@@ -78,5 +73,26 @@ public class MainPageSteps extends BaseStep {
     @And("^click exit services Yandex$")
     public void clickExitServicesYandex() throws Throwable{
         mainPage.logOut.click();
+    }
+
+    @Then("^appears text \"([^\"]*)\"$")
+    public void appearsText(String arg0) throws Throwable{
+        mainPage.letterWasSent.isDisplayed();
+    }
+
+    @When("^click button send letters$")
+    public void clickButtonSendLetters() throws Throwable{
+        mainPage.sent.click();
+    }
+
+    @Then("^open the letter with topic \"([^\"]*)\"$")
+    public void openTheLetterWithTopic(String topic) throws Throwable{
+        getDriver().findElement(By.linkText(topic)).click();
+    }
+
+    @Then("^user's login should be \"([^\"]*)\"$")
+    public void userSLoginShouldBe(String login) {
+        WebElement userNameElement = mainPage.getUserNameElement();
+        assertThat(userNameElement.getText(), equalTo(login));
     }
 }

@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.PageObject;
 
+import java.util.regex.Pattern;
+
 public class MainPage extends PageObject {
 
     public MainPage(WebDriver driver){
@@ -47,10 +49,13 @@ public class MainPage extends PageObject {
     @FindBy(css = "span.mail-ComposeButton-Refresh")
     public WebElement refresh;
 
+    @FindBy(linkText = "Письмо отправлено.")
+    public WebElement letterWasSent;
+
     @FindBy(css = "div.ns-view-messages-item-box")
     public WebElement newLetter;
 
-    @FindBy(id = "recipient-1")
+    @FindBy(css = "div.mail-User-Name")
     public WebElement userAvatar;
 
     @FindBy(linkText = "Выйти из сервисов Яндекса")
@@ -63,6 +68,11 @@ public class MainPage extends PageObject {
 
     public WebElement getUserNameElement(){
         return (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.presenceOfElementLocated(By.className("mail-User-Name")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("mail-User-Name")));
+    }
+
+    public WebElement getUserMenu(){
+        return (new WebDriverWait(driver, 30))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("b-user-dropdown")));
     }
 }

@@ -11,4 +11,4 @@ Feature: Authorization
     Then user's login should be "kotikovartur"
     When click to user avatar
     And click exit services Yandex
-    Then login "kotikovartur" missing on screen
+    Then should be button "Завести почту"
