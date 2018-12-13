@@ -1,14 +1,12 @@
 package ru.pflb.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.pflb.pages.MainPage;
+import ru.pflb.pages.main.MainPage;
 import ru.pflb.tech.BaseStep;
 import ru.pflb.tech.Context;
 
@@ -77,7 +75,7 @@ public class MainPageSteps extends BaseStep {
 
     @Then("^appears text \"([^\"]*)\"$")
     public void appearsText(String arg0) throws Throwable{
-        mainPage.letterWasSent.isDisplayed();
+        mainPage.getLetterWasSent().isDisplayed();
     }
 
     @When("^click button send letters$")
@@ -87,11 +85,11 @@ public class MainPageSteps extends BaseStep {
 
     @Then("^open the letter with topic \"([^\"]*)\"$")
     public void openTheLetterWithTopic(String topic) throws Throwable{
-        getDriver().findElement(By.linkText(topic)).click();
+        mainPage.getRowLetterByTopic(topic).open();
     }
 
     @Then("^user's login should be \"([^\"]*)\"$")
-    public void userSLoginShouldBe(String login) {
+    public void userSLoginShouldBe(String login){
         WebElement userNameElement = mainPage.getUserNameElement();
         assertThat(userNameElement.getText(), equalTo(login));
     }

@@ -1,4 +1,4 @@
-package ru.pflb.pages;
+package ru.pflb.pages.main;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.PageObject;
-
-import java.util.regex.Pattern;
 
 public class MainPage extends PageObject {
 
@@ -62,17 +60,27 @@ public class MainPage extends PageObject {
     public WebElement logOut;
 
     public WebElement getWriteLetterButton(){
-        return (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.presenceOfElementLocated(By.className("mail-ComposeButton-Text")));
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.className("mail" +
+                "-ComposeButton-Text")));
     }
 
     public WebElement getUserNameElement(){
-        return (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.className("mail-User-Name")));
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.className("mail" +
+                "-User-Name")));
+    }
+
+    public WebElement getLetterWasSent(){
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.linkText(
+                "Письмо отправлено.")));
     }
 
     public WebElement getUserMenu(){
-        return (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.className("b-user-dropdown")));
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.className("b" +
+                "-user-dropdown")));
     }
+
+    public RowOfLetter getRowLetterByTopic(String topic){
+        return new RowOfLetter(driver, driver.findElement(By.xpath(String.format("//div[contains(@class,'js-messages-list')]/div[descendant::span[text()='%s']]", topic))));
+    }
+
 }

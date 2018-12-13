@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import ru.pflb.pages.AuthorizationPage;
 import ru.pflb.pages.HomePage;
 import ru.pflb.pages.LetterPage;
-import ru.pflb.pages.MainPage;
+import ru.pflb.pages.main.MainPage;
 
 public class PageObjectManager {
 
