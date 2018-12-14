@@ -8,7 +8,7 @@ Feature: Creating letter
     And click button enter to mail
 
   Scenario: Create new letter
-    When click button write letter
-    Then write email recipient "arendapirojkov@gmail.com"
-    And write message subject topic "Just for test"
-    And write text "Body of letter"
+    Then create letter "letter001"
+    And add letter's "letter001" recipient "arendapirojkov@gmail.com"
+    And set letter's "letter001" topic to "Scenario: create new letter"
+    And set letter's "letter001" body to "Body of first letter"

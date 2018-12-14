@@ -1,5 +1,6 @@
 package ru.pflb.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,6 +11,7 @@ import ru.pflb.pages.LetterPage;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -45,6 +47,17 @@ public class LetterPageSteps extends BaseStep {
         letterPage.bodyField.sendKeys(body);
         letter.setBody(body);
     }
+
+    @Then("^recipients should be as in \"([^\"]*)\"$")
+    public void recipientsShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
+        // TODO Доделать для остальных параметров
+    }
+
+
+
+
 
     @Then("^close the letter$")
     public void closeTheLetter() throws Throwable{

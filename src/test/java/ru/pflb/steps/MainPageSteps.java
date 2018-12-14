@@ -1,6 +1,5 @@
 package ru.pflb.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,12 +8,13 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import ru.pflb.models.Letter;
 import ru.pflb.pages.main.MainPage;
+import ru.pflb.pages.main.RowOfLetter;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class MainPageSteps extends BaseStep {
 
@@ -50,6 +50,23 @@ public class MainPageSteps extends BaseStep {
         while(! mainPage.hasRowLetterWithTopic(letter.getTopic()));
     }
 
+    @Then("^should be letter \"([^\"]*)\"$")
+    public void shouldBeLetter(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(String.format("Отсутствует письмо с темой '%s'", letter.getTopic()),
+                mainPage.hasRowLetterWithTopic(letter.getTopic()), equalTo(true));
+        RowOfLetter letterRow = mainPage.getRowLetterByTopic(letter.getTopic());
+        assertThat(letterRow.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
+        assertThat(letterRow.getBody(), equalTo(letter.getBody()));
+    }
+
+    @When("^open the letter \"([^\"]*)\"$")
+    public void openTheLetter(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        mainPage.getRowLetterByTopic(letter.getTopic()).open();
+    }
+
+
     @And("^recipient should starts with \"([^\"]*)\"$")
     public void recipientStartsTo(String recipient) throws Throwable{
         assertThat(recipient, startsWith(mainPage.recipient.getText()));
@@ -81,11 +98,6 @@ public class MainPageSteps extends BaseStep {
         mainPage.sent.click();
     }
 
-    @Then("^open the letter with topic \"([^\"]*)\"$")
-    public void openTheLetterWithTopic(String topic) throws Throwable{
-        mainPage.getRowLetterByTopic(topic).open();
-    }
-
     @Then("^user's login should be \"([^\"]*)\"$")
     public void userSLoginShouldBe(String login){
         WebElement userNameElement = mainPage.getUserNameElement();
@@ -96,4 +108,5 @@ public class MainPageSteps extends BaseStep {
     public void exitFromUserAccount(){
         mainPage.getUserMenu().clickLogoutButton();
     }
+
 }
