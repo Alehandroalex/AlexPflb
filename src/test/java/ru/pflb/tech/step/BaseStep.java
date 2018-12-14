@@ -1,4 +1,4 @@
-package ru.pflb.tech;
+package ru.pflb.tech.step;
 
 import org.openqa.selenium.WebDriver;
 

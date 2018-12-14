@@ -1,16 +1,15 @@
 package ru.pflb.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.pflb.models.Letter;
 import ru.pflb.pages.LetterPage;
-import ru.pflb.tech.BaseStep;
-import ru.pflb.tech.Context;
+import ru.pflb.tech.step.BaseStep;
+import ru.pflb.tech.step.Context;
 
-import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -26,19 +25,25 @@ public class LetterPageSteps extends BaseStep {
         letterPage = context.getPageObjectManager().getLetterPage();
     }
 
-    @Then("^write email recipient \"([^\"]*)\"$")
-    public void writeEmailRecipient(String recipient) throws Throwable{
-        letterPage.recipient.sendKeys(recipient);
+    @And("^add letter's \"([^\"]*)\" recipient \"([^\"]*)\"$")
+    public void addLetterSRecipient(String letterAlias, String recipient) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        letterPage.recipientField.sendKeys(recipient);
+        letter.addRecipient(recipient);
     }
 
-    @And("^write message subject topic \"([^\"]*)\"$")
-    public void writeMessageSubjectTopic(String topic) throws Throwable{
+    @And("^set letter's \"([^\"]*)\" topic to \"([^\"]*)\"$")
+    public void setLetterSTopicTo(String letterAlias, String topic) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
         letterPage.topicField.sendKeys(topic);
+        letter.setTopic(topic);
     }
 
-    @And("^write text \"([^\"]*)\"$")
-    public void writeText(String text) throws Throwable{
-        letterPage.bodyOfLetter.sendKeys(text);
+    @And("^set letter's \"([^\"]*)\" body to \"([^\"]*)\"$")
+    public void setLetterSBodyTo(String letterAlias, String body) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        letterPage.bodyField.sendKeys(body);
+        letter.setBody(body);
     }
 
     @Then("^close the letter$")
@@ -53,7 +58,7 @@ public class LetterPageSteps extends BaseStep {
 
     @When("^recipient should equals to \"([^\"]*)\"$")
     public void recipientShouldEqualsTo(String recipient) throws Throwable{
-        assertEquals(recipient, letterPage.recipient.getText());
+        assertEquals(recipient, letterPage.recipientField.getText());
     }
 
     @And("^topic should equals to \"([^\"]*)\"$")
@@ -63,6 +68,6 @@ public class LetterPageSteps extends BaseStep {
 
     @And("^body should equals to \"([^\"]*)\"$")
     public void bodyShouldEqualsTo(String body) throws Throwable{
-        assertEquals(body, letterPage.bodyOfLetter.getText());
+        assertEquals(body, letterPage.bodyField.getText());
     }
 }

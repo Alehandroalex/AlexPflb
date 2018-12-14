@@ -7,17 +7,19 @@ Feature: Testing Yandex mail
     And write password "kotikov123"
     And click button enter to mail
 
+  @One
   Scenario: Save letter to draft
-    And click button write letter
-    And write email recipient "arendapirojkov@gmail.com"
-    And write message subject topic "First scenario: Save letter to draft"
-    And write text "Body of first letter"
-    And click button draft
-    Then recipient should starts with "arendapirojkov@gmail.com"
-    And topic should starts with "First scenario: Save letter to draft"
+    Given create letter "letter001"
+    And add letter's "letter001" recipient "arendapirojkov@gmail.com"
+    And set letter's "letter001" topic to "First scenario: Save letter to draft"
+    And set letter's "letter001" body to "Body of first letter"
+    And open drafts' page
+    Then wait for appearance of letter "letter001"
+
+    And recipient should starts with "arendapirojkov"
     And body should starts with "Body of first letter"
     Then open the letter with topic "First scenario: Save letter to draft"
-    When recipient should equals to "arendapirojkov@gmail.com"
+    When recipient should starts with "arendapirojkov"
     And topic should equals to "First scenario: Save letter to draft"
     And body should equals to "Body of first letter"
     When close the letter

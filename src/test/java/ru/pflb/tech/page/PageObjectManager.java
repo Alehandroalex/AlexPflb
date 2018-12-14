@@ -1,4 +1,4 @@
-package ru.pflb.tech;
+package ru.pflb.tech.page;
 
 import org.openqa.selenium.WebDriver;
 import ru.pflb.pages.AuthorizationPage;
@@ -13,7 +13,7 @@ public class PageObjectManager {
     private MainPage mainPage;
     private HomePage homePage;
 
-    void setDriver(WebDriver driver){
+    public void setDriver(WebDriver driver){
         this.authorizationPage = new AuthorizationPage(driver);
         this.letterPage = new LetterPage(driver);
         this.mainPage = new MainPage(driver);

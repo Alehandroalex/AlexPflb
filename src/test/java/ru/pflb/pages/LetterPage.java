@@ -3,7 +3,7 @@ package ru.pflb.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.pflb.PageObject;
+import ru.pflb.tech.page.PageObject;
 
 public class LetterPage extends PageObject {
 
@@ -12,13 +12,13 @@ public class LetterPage extends PageObject {
     }
 
     @FindBy(xpath = "//div[@name='to']")
-    public WebElement recipient;
+    public WebElement recipientField;
 
     @FindBy(css = "label.mail-Compose-Field_subject input")
     public WebElement topicField;
 
     @FindBy(xpath = "//textarea[@role='textbox']")
-    public WebElement bodyOfLetter;
+    public WebElement bodyField;
 
     @FindBy(css = "button.js-send-button")
     public WebElement sentLetter;

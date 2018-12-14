@@ -9,6 +9,5 @@ Feature: Authorization
     And write password "kotikov123"
     And click button enter to mail
     Then user's login should be "kotikovartur"
-    When click to user avatar
-    And click exit services Yandex
+    When exit from user account
     Then should be button "Завести почту"

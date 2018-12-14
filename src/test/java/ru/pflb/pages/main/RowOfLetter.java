@@ -1,23 +1,22 @@
 package ru.pflb.pages.main;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.pflb.tech.page.PageElement;
 
-public class RowOfLetter {
+public class RowOfLetter extends PageElement {
 
-    private final WebDriver driver;
-    private final WebElement root;
+    public RowOfLetter(WebDriver driver, WebElement root){
+        super(driver, root);
+    }
 
     @FindBy(className = "_nb-checkbox-flag")
     public WebElement checkbox;
 
-    public RowOfLetter(WebDriver driver, WebElement root){
-        this.driver = driver;
-        this.root = root;
-    }
-
     public void open(){
         root.click();
     }
+
 }

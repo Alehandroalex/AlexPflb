@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import ru.pflb.tech.BaseStep;
-import ru.pflb.tech.Context;
+import ru.pflb.tech.step.BaseStep;
+import ru.pflb.tech.step.Context;
 
 import java.util.concurrent.TimeUnit;
 

@@ -3,10 +3,9 @@ package ru.pflb.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.pflb.PageObject;
+import ru.pflb.tech.page.PageObject;
 
 public class HomePage extends PageObject {
 

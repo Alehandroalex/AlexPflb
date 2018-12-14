@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.pflb.PageObject;
+import ru.pflb.tech.page.PageObject;
 
 public class MainPage extends PageObject {
 
@@ -50,9 +50,6 @@ public class MainPage extends PageObject {
     @FindBy(linkText = "Письмо отправлено.")
     public WebElement letterWasSent;
 
-    @FindBy(css = "div.ns-view-messages-item-box")
-    public WebElement newLetter;
-
     @FindBy(css = "div.mail-User-Name")
     public WebElement userAvatar;
 
@@ -60,13 +57,12 @@ public class MainPage extends PageObject {
     public WebElement logOut;
 
     public WebElement getWriteLetterButton(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.className("mail" +
-                "-ComposeButton-Text")));
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.className("mail" + "-ComposeButton-Text")));
     }
 
     public WebElement getUserNameElement(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.className("mail" +
-                "-User-Name")));
+        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.className("mail"
+                + "-User-Name")));
     }
 
     public WebElement getLetterWasSent(){
@@ -74,13 +70,27 @@ public class MainPage extends PageObject {
                 "Письмо отправлено.")));
     }
 
-    public WebElement getUserMenu(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.className("b" +
-                "-user-dropdown")));
+    private By getByLetterByTopic(String topic){
+        return By.xpath(String.format("//div[contains(@class," + "'js-messages-list')]/div[descendant::span[text()" +
+                "='%s']]", topic));
+    }
+
+    public boolean hasRowLetterWithTopic(String topic){
+        return driver.findElements(getByLetterByTopic(topic)).size() > 0;
     }
 
     public RowOfLetter getRowLetterByTopic(String topic){
-        return new RowOfLetter(driver, driver.findElement(By.xpath(String.format("//div[contains(@class,'js-messages-list')]/div[descendant::span[text()='%s']]", topic))));
+        return new RowOfLetter(driver, driver.findElement(getByLetterByTopic(topic)));
+    }
+
+    public UserMenu getUserMenu(){
+        By userMenuBy = By.xpath("//div[child::div[contains(@class,'user-dropdown')] and contains(@class," + "'ui" +
+                "-widget')]");
+        if(driver.findElements(userMenuBy).size() == 0){
+            userAvatar.click();
+            new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOfElementLocated(userMenuBy));
+        }
+        return new UserMenu(driver, driver.findElement(userMenuBy));
     }
 
 }

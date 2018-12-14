@@ -3,7 +3,7 @@ package ru.pflb.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.pflb.PageObject;
+import ru.pflb.tech.page.PageObject;
 
 public class AuthorizationPage extends PageObject {
 

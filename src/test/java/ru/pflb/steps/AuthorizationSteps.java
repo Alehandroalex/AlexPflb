@@ -8,8 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.pflb.pages.AuthorizationPage;
 import ru.pflb.pages.HomePage;
-import ru.pflb.tech.BaseStep;
-import ru.pflb.tech.Context;
+import ru.pflb.tech.step.BaseStep;
+import ru.pflb.tech.step.Context;
 
 public class AuthorizationSteps extends BaseStep {
 

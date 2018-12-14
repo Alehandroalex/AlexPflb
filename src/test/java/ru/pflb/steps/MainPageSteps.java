@@ -1,14 +1,16 @@
 package ru.pflb.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import ru.pflb.models.Letter;
 import ru.pflb.pages.main.MainPage;
-import ru.pflb.tech.BaseStep;
-import ru.pflb.tech.Context;
+import ru.pflb.tech.step.BaseStep;
+import ru.pflb.tech.step.Context;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
@@ -26,24 +28,30 @@ public class MainPageSteps extends BaseStep {
         mainPage = context.getPageObjectManager().getMainPage();
     }
 
-    @When("^click button write letter$")
-    public void clickButtonWriteLetter() throws Throwable{
+    @And("^create letter \"([^\"]*)\"$")
+    public void createLetter(String letterAlias) throws Throwable{
         mainPage.getWriteLetterButton().click();
+        context.addLetter(letterAlias, new Letter());
     }
 
-    @And("^click button draft$")
-    public void clickButtonDraft() throws Throwable{
+    @And("^open drafts' page$")
+    public void openDraftsPage() throws Throwable{
         mainPage.draft.click();
         if(mainPage.saveWindow.isDisplayed())
             mainPage.saveAndGo.click();
     }
 
-    @And("^recipient should starts with \"([^\"]*)\"$")
-    public void recipientStartsTo(String recipient) throws Throwable{
+    @Then("^wait for appearance of letter \"([^\"]*)\"$")
+    public void waitForAppearanceOfLetter(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
         do{
             mainPage.refresh.click();
         }
-        while(! mainPage.newLetter.isDisplayed());
+        while(! mainPage.hasRowLetterWithTopic(letter.getTopic()));
+    }
+
+    @And("^recipient should starts with \"([^\"]*)\"$")
+    public void recipientStartsTo(String recipient) throws Throwable{
         assertThat(recipient, startsWith(mainPage.recipient.getText()));
     }
 
@@ -61,16 +69,6 @@ public class MainPageSteps extends BaseStep {
     public void deleteTheLetter() throws Throwable{
         mainPage.checkbox.click();
         mainPage.delete.click();
-    }
-
-    @When("^click to user avatar$")
-    public void clickToUserAvatar() throws Throwable{
-        mainPage.userAvatar.click();
-    }
-
-    @And("^click exit services Yandex$")
-    public void clickExitServicesYandex() throws Throwable{
-        mainPage.logOut.click();
     }
 
     @Then("^appears text \"([^\"]*)\"$")
@@ -92,5 +90,10 @@ public class MainPageSteps extends BaseStep {
     public void userSLoginShouldBe(String login){
         WebElement userNameElement = mainPage.getUserNameElement();
         assertThat(userNameElement.getText(), equalTo(login));
+    }
+
+    @When("^exit from user account$")
+    public void exitFromUserAccount(){
+        mainPage.getUserMenu().clickLogoutButton();
     }
 }
