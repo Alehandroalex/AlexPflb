@@ -14,7 +14,7 @@ public class MainPage extends PageObject {
         super(driver);
     }
 
-    @FindBy(linkText = "Черновики")
+    @FindBy(xpath = "//span[.='Черновики']")
     public WebElement draft;
 
     @FindBy(linkText = "Отправленные")

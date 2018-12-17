@@ -14,7 +14,7 @@ public class LetterViewerPage extends PageObject {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[data-email]")
+    @FindBy(css = "div.mail-Message-Head-Floor_recipient div.js-contact-actions-dropdown")
     public List<WebElement> recipientList;
 
     @FindBy(css = "div.mail-Message-Toolbar-Subject_message")

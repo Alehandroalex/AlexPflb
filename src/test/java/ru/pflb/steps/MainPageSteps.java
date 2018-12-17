@@ -37,8 +37,12 @@ public class MainPageSteps extends BaseStep {
     @And("^open drafts' page$")
     public void openDraftsPage() throws Throwable{
         mainPage.draft.click();
-        if(mainPage.saveWindow.isDisplayed())
-            mainPage.saveAndGo.click();
+        if(mainPage.saveWindow.isDisplayed()){mainPage.saveAndGo.click();}
+    }
+
+    @When("^click drafts' page$")
+    public void clickDraftsPage(){
+        mainPage.draft.click();
     }
 
     @Then("^wait for appearance of letter \"([^\"]*)\"$")

@@ -77,6 +77,7 @@ public class LetterPageSteps extends BaseStep {
     @Then("^recipients in viewer should be as in \"([^\"]*)\"$")
     public void recipientsInViewerShouldBeAsIn(String letterAlias) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected letter: '{}', send letter: '{}'", letterViewerPage.getRecipients(), letter.getRecipientList().toArray());
         assertThat(letterViewerPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
     }
 
