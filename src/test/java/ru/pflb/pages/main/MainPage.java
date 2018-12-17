@@ -65,9 +65,10 @@ public class MainPage extends PageObject {
                 + "-User-Name")));
     }
 
-    public WebElement getLetterWasSent(){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.linkText(
-                "Письмо отправлено.")));
+    public WebElement getElementWithText(String text){
+        return (new WebDriverWait(driver, 30))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath(String.format("//*[contains(text(), '%s')]", text))));
     }
 
     private By getByLetterByTopic(String topic){
@@ -93,4 +94,7 @@ public class MainPage extends PageObject {
         return new UserMenu(driver, driver.findElement(userMenuBy));
     }
 
+    public WebElement getCheckbox(){
+        return checkbox;
+    }
 }

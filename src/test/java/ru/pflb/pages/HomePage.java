@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.pflb.tech.konfiguratin.Configuration;
 import ru.pflb.tech.page.PageObject;
 
 public class HomePage extends PageObject {
@@ -19,5 +20,10 @@ public class HomePage extends PageObject {
     public WebElement getToGetMail(){
         return (new WebDriverWait(driver, 30))
                 .until(ExpectedConditions.presenceOfElementLocated(By.linkText("Завести почту")));
+    }
+
+    public HomePage open(){
+        driver.get(Configuration.URL);
+        return this;
     }
 }

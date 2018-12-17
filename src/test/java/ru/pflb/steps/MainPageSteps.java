@@ -1,5 +1,6 @@
 package ru.pflb.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import ru.pflb.models.Letter;
 import ru.pflb.pages.main.MainPage;
 import ru.pflb.pages.main.RowOfLetter;
+import ru.pflb.tech.konfiguratin.Configuration;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
@@ -82,20 +84,29 @@ public class MainPageSteps extends BaseStep {
         assertThat(body, startsWith(mainPage.body.getText()));
     }
 
-    @And("^delete the letter$")
-    public void deleteTheLetter() throws Throwable{
-        mainPage.checkbox.click();
+    @And("^delete the letter \"([^\"]*)\"$")
+    public void deleteTheLetter(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        RowOfLetter letterRow = mainPage.getRowLetterByTopic(letter.getTopic());
+        letterRow.getCheckBox().click();
         mainPage.delete.click();
     }
 
-    @Then("^appears text \"([^\"]*)\"$")
-    public void appearsText(String arg0) throws Throwable{
-        mainPage.getLetterWasSent().isDisplayed();
+    @Then("^should appears the text \"([^\"]*)\"$")
+    public void shouldAppearsTheText(String text) throws Throwable{
+        mainPage.getElementWithText(text).isDisplayed();
     }
 
-    @When("^click button send letters$")
-    public void clickButtonSendLetters() throws Throwable{
+    @When("^open send's page$")
+    public void openSendSPage() throws Throwable{
         mainPage.sent.click();
+    }
+
+    @Then("^user's login should be correct$")
+    public void userSLoginShouldBeCorrect(){
+        WebElement userNameElement = mainPage.getUserNameElement();
+        LOGGER.info("Expected login: '{}', actual login: '{}'", userNameElement.getText(), Configuration.LOGIN);
+        assertThat(userNameElement.getText(), equalTo(Configuration.LOGIN));
     }
 
     @Then("^user's login should be \"([^\"]*)\"$")
@@ -108,5 +119,4 @@ public class MainPageSteps extends BaseStep {
     public void exitFromUserAccount(){
         mainPage.getUserMenu().clickLogoutButton();
     }
-
 }

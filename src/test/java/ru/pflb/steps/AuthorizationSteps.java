@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.pflb.pages.AuthorizationPage;
 import ru.pflb.pages.HomePage;
+import ru.pflb.pages.main.MainPage;
+import ru.pflb.tech.konfiguratin.Configuration;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
@@ -22,33 +24,18 @@ public class AuthorizationSteps extends BaseStep {
         super(context);
         LOGGER.debug("AuthorizationSteps is created");
         authorizationPage = context.getPageObjectManager().getAuthorizationPage();
+        homePage = context.getPageObjectManager().getHomePage();
     }
 
-    @Given("^go to \"([^\"]*)\"$")
-    public void goTo(String url) throws Throwable{
-        getDriver().get(url);
-    }
-
-    @When("^click button enter$")
-    public void clickButtonEnter() throws Throwable{
+    @Given("^login to mail$")
+    public void loginToMail(){
+        homePage.open();
         authorizationPage.enterButton.click();
-    }
-
-    @And("^write login \"([^\"]*)\"$")
-    public void writeLogin(String login) throws Throwable{
-        authorizationPage.loginField.sendKeys(login);
-    }
-
-    @And("^write password \"([^\"]*)\"$")
-    public void writePassword(String password) throws Throwable{
+        authorizationPage.setLogin(Configuration.LOGIN);
         if(! authorizationPage.passwordField.isDisplayed()){
             authorizationPage.enter.click();
         }
-        authorizationPage.passwordField.sendKeys(password);
-    }
-
-    @And("^click button enter to mail$")
-    public void clickButtonEnterToMail() throws Throwable{
+        authorizationPage.setPassword(Configuration.PASSWORD);
         authorizationPage.enter.click();
     }
 

@@ -1,13 +1,7 @@
 Feature: Authorization
 
-  Background: prepare for scenario
-    Given go to "https://mail.yandex.ru/"
-    And click button enter
-
   Scenario: Authorization
-    When write login "kotikovartur"
-    And write password "kotikov123"
-    And click button enter to mail
-    Then user's login should be "kotikovartur"
+    When login to mail
+    Then user's login should be correct
     When exit from user account
-    Then should be button "Завести почту"
+    Then should appears the text "Завести почту"

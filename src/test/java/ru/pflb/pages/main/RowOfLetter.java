@@ -40,4 +40,12 @@ public class RowOfLetter extends PageElement {
         return recipients;
     }
 
+    public WebElement getCheckBox(){
+        return root.findElement(By.className("_nb-checkbox-flag"));
+    }
+
+    public void checkBoxClick(){
+        getCheckBox().click();
+    }
+
 }

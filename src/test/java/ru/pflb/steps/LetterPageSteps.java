@@ -1,6 +1,5 @@
 package ru.pflb.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,7 +10,7 @@ import ru.pflb.pages.LetterPage;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +29,9 @@ public class LetterPageSteps extends BaseStep {
     @And("^add letter's \"([^\"]*)\" recipient \"([^\"]*)\"$")
     public void addLetterSRecipient(String letterAlias, String recipient) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
+        if(letter.getRecipientList().size() > 0){
+            letterPage.recipientField.sendKeys(" ");
+        }
         letterPage.recipientField.sendKeys(recipient);
         letter.addRecipient(recipient);
     }
@@ -52,20 +54,28 @@ public class LetterPageSteps extends BaseStep {
     public void recipientsShouldBeAsIn(String letterAlias) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
         assertThat(letterPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
-        // TODO Доделать для остальных параметров
     }
 
+    @And("^topic should be as in \"([^\"]*)\"$")
+    public void topicShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterPage.topicField.getAttribute("value"), equalTo(letter.getTopic()));
+    }
 
-
-
+    @And("^body should be as in \"([^\"]*)\"$")
+    public void bodyShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterPage.bodyField.getAttribute("value"), startsWith(letter.getBody()));
+    }
 
     @Then("^close the letter$")
     public void closeTheLetter() throws Throwable{
         letterPage.closeLetter.click();
     }
 
-    @And("^click button send$")
-    public void clickButtonSend() throws Throwable{
+
+    @And("^send the letter$")
+    public void sendTheLetter() throws Throwable{
         letterPage.sentLetter.click();
     }
 
