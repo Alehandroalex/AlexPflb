@@ -18,6 +18,7 @@ Feature: Testing Yandex mail
     When close the letter
     And delete the letter "letter001"
 
+  @One
   Scenario: sending letter
     Given create letter "letter001"
     And add letter's "letter001" recipient "arendapirojkov@gmail.com"

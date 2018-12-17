@@ -24,8 +24,12 @@ public class LetterPageSteps extends BaseStep {
 
     public LetterPageSteps(Context context){
         super(context);
-        LOGGER.debug("LetterPageSteps is created");
-        letterEditorPage = context.getPageObjectManager().getLetterEditorPage();
+        letterEditorPage = new LetterEditorPage(getDriver());
+        letterViewerPage = new LetterViewerPage(getDriver());
+
+//        LOGGER.debug("LetterPageSteps is created");
+//        letterEditorPage = context.getPageObjectManager().getLetterEditorPage();
+//        letterViewerPage = context.getPageObjectManager().getLetterViewerPage();
     }
 
     @And("^add letter's \"([^\"]*)\" recipient \"([^\"]*)\"$")
