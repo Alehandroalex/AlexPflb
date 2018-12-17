@@ -9,14 +9,17 @@ import ru.pflb.tech.page.PageObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LetterPage extends PageObject {
+public class LetterEditorPage extends PageObject {
 
-    public LetterPage(WebDriver driver){
+    public LetterEditorPage(WebDriver driver){
         super(driver);
     }
 
     @FindBy(xpath = "//div[@name='to']")
     public WebElement recipientField;
+
+    @FindBy(xpath = "//div[@name='to']/span")
+    public List<WebElement> recipientElements;
 
     @FindBy(css = "label.mail-Compose-Field_subject input")
     public WebElement topicField;
@@ -31,7 +34,6 @@ public class LetterPage extends PageObject {
     public WebElement closeLetter;
 
     public List<String> getRecipients(){
-        List<WebElement> recipientElements = driver.findElements(By.xpath("//div[@name='to']/span"));
         List<String> recipients = new ArrayList<>(recipientElements.size());
         for(WebElement recipientElement : recipientElements){
             recipients.add(recipientElement.getAttribute("data-yabble-email"));

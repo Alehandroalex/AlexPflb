@@ -90,6 +90,11 @@ public class MainPageSteps extends BaseStep {
         mainPage.delete.click();
     }
 
+    @And("^delete the letter in viewer$")
+    public void deleteTheLetterInViewer(){
+        mainPage.delete.click();
+    }
+
     @Then("^should appears the text \"([^\"]*)\"$")
     public void shouldAppearsTheText(String text) throws Throwable{
         mainPage.getElementWithText(text).isDisplayed();
@@ -117,5 +122,4 @@ public class MainPageSteps extends BaseStep {
     public void exitFromUserAccount(){
         mainPage.getUserMenu().clickLogoutButton();
     }
-
 }

@@ -12,9 +12,9 @@ Feature: Testing Yandex mail
     And wait for appearance of letter "letter001"
     Then should be letter "letter001"
     When open the letter "letter001"
-    Then recipients should be as in "letter001"
-    And topic should be as in "letter001"
-    And body should be as in "letter001"
+    Then recipients in editor should be as in "letter001"
+    And topic in editor should be as in "letter001"
+    And body in editor should be as in "letter001"
     When close the letter
     And delete the letter "letter001"
 
@@ -28,4 +28,8 @@ Feature: Testing Yandex mail
     When open send's page
     And wait for appearance of letter "letter001"
     Then should be letter "letter001"
-    And delete the letter "letter001"
+    When open the letter "letter001"
+    Then recipients in viewer should be as in "letter001"
+    And topic in viewer should be as in "letter001"
+    And body in viewer should be as in "letter001"
+    And delete the letter in viewer

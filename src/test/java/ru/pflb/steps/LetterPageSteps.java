@@ -6,7 +6,8 @@ import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.pflb.models.Letter;
-import ru.pflb.pages.LetterPage;
+import ru.pflb.pages.LetterEditorPage;
+import ru.pflb.pages.LetterViewerPage;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 
@@ -18,80 +19,99 @@ public class LetterPageSteps extends BaseStep {
 
     private static final Logger LOGGER = LogManager.getLogger(LetterPageSteps.class);
 
-    private LetterPage letterPage;
+    private LetterEditorPage letterEditorPage;
+    private LetterViewerPage letterViewerPage;
 
     public LetterPageSteps(Context context){
         super(context);
         LOGGER.debug("LetterPageSteps is created");
-        letterPage = context.getPageObjectManager().getLetterPage();
+        letterEditorPage = context.getPageObjectManager().getLetterEditorPage();
     }
 
     @And("^add letter's \"([^\"]*)\" recipient \"([^\"]*)\"$")
     public void addLetterSRecipient(String letterAlias, String recipient) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
         if(letter.getRecipientList().size() > 0){
-            letterPage.recipientField.sendKeys(" ");
+            letterEditorPage.recipientField.sendKeys(" ");
         }
-        letterPage.recipientField.sendKeys(recipient);
+        letterEditorPage.recipientField.sendKeys(recipient);
         letter.addRecipient(recipient);
     }
 
     @And("^set letter's \"([^\"]*)\" topic to \"([^\"]*)\"$")
     public void setLetterSTopicTo(String letterAlias, String topic) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
-        letterPage.topicField.sendKeys(topic);
+        letterEditorPage.topicField.sendKeys(topic);
         letter.setTopic(topic);
     }
 
     @And("^set letter's \"([^\"]*)\" body to \"([^\"]*)\"$")
     public void setLetterSBodyTo(String letterAlias, String body) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
-        letterPage.bodyField.sendKeys(body);
+        letterEditorPage.bodyField.sendKeys(body);
         letter.setBody(body);
     }
 
-    @Then("^recipients should be as in \"([^\"]*)\"$")
-    public void recipientsShouldBeAsIn(String letterAlias) throws Throwable{
+    @Then("^recipients in editor should be as in \"([^\"]*)\"$")
+    public void recipientsInEditorShouldBeAsIn(String letterAlias) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
-        assertThat(letterPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
+        assertThat(letterEditorPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
     }
 
-    @And("^topic should be as in \"([^\"]*)\"$")
-    public void topicShouldBeAsIn(String letterAlias) throws Throwable{
+    @And("^topic in editor should be as in \"([^\"]*)\"$")
+    public void topicInEditorShouldBeAsIn(String letterAlias) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
-        assertThat(letterPage.topicField.getAttribute("value"), equalTo(letter.getTopic()));
+        assertThat(letterEditorPage.topicField.getAttribute("value"), equalTo(letter.getTopic()));
     }
 
-    @And("^body should be as in \"([^\"]*)\"$")
-    public void bodyShouldBeAsIn(String letterAlias) throws Throwable{
+    @And("^body in editor should be as in \"([^\"]*)\"$")
+    public void bodyInEditorShouldBeAsIn(String letterAlias) throws Throwable{
         Letter letter = context.getLetter(letterAlias);
-        assertThat(letterPage.bodyField.getAttribute("value"), startsWith(letter.getBody()));
+        assertThat(letterEditorPage.bodyField.getAttribute("value"), startsWith(letter.getBody()));
+    }
+
+    @Then("^recipients in viewer should be as in \"([^\"]*)\"$")
+    public void recipientsInViewerShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterViewerPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
+    }
+
+    @And("^topic in viewer should be as in \"([^\"]*)\"$")
+    public void topicInViewerShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterViewerPage.topic.getText(), equalTo(letter.getTopic()));
+    }
+
+    @And("^body in viewer should be as in \"([^\"]*)\"$")
+    public void bodyInViewerShouldBeAsIn(String letterAlias) throws Throwable{
+        Letter letter = context.getLetter(letterAlias);
+        assertThat(letterViewerPage.body.getText(), equalTo(letter.getBody()));
     }
 
     @Then("^close the letter$")
     public void closeTheLetter() throws Throwable{
-        letterPage.closeLetter.click();
+        letterEditorPage.closeLetter.click();
     }
 
 
     @And("^send the letter$")
     public void sendTheLetter() throws Throwable{
-        letterPage.sentLetter.click();
+        letterEditorPage.sentLetter.click();
     }
 
     @When("^recipient should equals to \"([^\"]*)\"$")
     public void recipientShouldEqualsTo(String recipient) throws Throwable{
-        assertEquals(recipient, letterPage.recipientField.getText());
+        assertEquals(recipient, letterEditorPage.recipientField.getText());
     }
 
     @And("^topic should equals to \"([^\"]*)\"$")
     public void topicShouldEqualsTo(String topic) throws Throwable{
-        assertEquals(topic, letterPage.topicField.getText());
+        assertEquals(topic, letterEditorPage.topicField.getText());
     }
 
     @And("^body should equals to \"([^\"]*)\"$")
     public void bodyShouldEqualsTo(String body) throws Throwable{
-        assertEquals(body, letterPage.bodyField.getText());
+        assertEquals(body, letterEditorPage.bodyField.getText());
     }
 
 }
