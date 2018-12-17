@@ -18,7 +18,7 @@ public class LetterPageSteps extends BaseStep {
 
     private static final Logger LOGGER = LogManager.getLogger(LetterPageSteps.class);
 
-    LetterPage letterPage;
+    private LetterPage letterPage;
 
     public LetterPageSteps(Context context){
         super(context);
@@ -93,4 +93,5 @@ public class LetterPageSteps extends BaseStep {
     public void bodyShouldEqualsTo(String body) throws Throwable{
         assertEquals(body, letterPage.bodyField.getText());
     }
+
 }

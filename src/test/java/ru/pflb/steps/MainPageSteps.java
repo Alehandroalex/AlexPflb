@@ -1,6 +1,5 @@
 package ru.pflb.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,13 +15,12 @@ import ru.pflb.tech.step.Context;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class MainPageSteps extends BaseStep {
 
     private static final Logger LOGGER = LogManager.getLogger(MainPageSteps.class);
 
-    MainPage mainPage;
+    private MainPage mainPage;
 
     public MainPageSteps(Context context){
         super(context);
@@ -119,4 +117,5 @@ public class MainPageSteps extends BaseStep {
     public void exitFromUserAccount(){
         mainPage.getUserMenu().clickLogoutButton();
     }
+
 }

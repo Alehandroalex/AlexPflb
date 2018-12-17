@@ -39,6 +39,4 @@ public class LetterPage extends PageObject {
         return recipients;
     }
 
-
-
 }

@@ -11,7 +11,7 @@ public class HomePageSteps extends BaseStep {
 
     private static final Logger LOGGER = LogManager.getLogger(HomePageSteps.class);
 
-    HomePage homePage;
+    private HomePage homePage;
 
     public HomePageSteps(Context context){
         super(context);

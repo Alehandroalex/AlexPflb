@@ -11,7 +11,7 @@ public class Context {
 
     private WebDriver driver;
     private PageObjectManager pageObjectManager = new PageObjectManager();
-    private Map <String, Letter> letters = new HashMap<>();
+    private Map<String, Letter> letters = new HashMap<>();
 
     public WebDriver getDriver(){
         return driver;
@@ -26,7 +26,7 @@ public class Context {
         return pageObjectManager;
     }
 
-    public Context addLetter (String alias, Letter letter){
+    public Context addLetter(String alias, Letter letter){
         if(letters.containsKey(alias)){
             throw new IllegalArgumentException("Письмо с данным псевдонимом уже присутствует");
         }
@@ -34,7 +34,7 @@ public class Context {
         return this;
     }
 
-    public Letter getLetter (String alias){
+    public Letter getLetter(String alias){
         return letters.get(alias);
     }
 

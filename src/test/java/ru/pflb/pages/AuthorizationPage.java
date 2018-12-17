@@ -1,12 +1,13 @@
 package ru.pflb.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.tech.page.PageObject;
+
+import static org.openqa.selenium.By.name;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class AuthorizationPage extends PageObject {
 
@@ -27,8 +28,7 @@ public class AuthorizationPage extends PageObject {
     public WebElement passwordField;
 
     public WebElement getPasswordField(){
-        return (new WebDriverWait(driver, 30))
-                .until(ExpectedConditions.elementToBeClickable(By.name("passwd")));
+        return (new WebDriverWait(driver, 30)).until(elementToBeClickable(name("passwd")));
     }
 
     public void setLogin(String login){
@@ -36,8 +36,7 @@ public class AuthorizationPage extends PageObject {
     }
 
     public void setPassword(String password){
-        new WebDriverWait(driver, 30)
-                .until(ExpectedConditions.elementToBeClickable(By.name("passwd"))).sendKeys(password);
+        new WebDriverWait(driver, 30).until(elementToBeClickable(name("passwd"))).sendKeys(password);
     }
 
 }

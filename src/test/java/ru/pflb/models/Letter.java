@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Letter {
 
-    private List<String>recipientList = new ArrayList<>();
+    private List<String> recipientList = new ArrayList<>();
     private String topic;
     private String body;
 
@@ -35,7 +35,5 @@ public class Letter {
         this.body = body;
         return this;
     }
-
-
 
 }
