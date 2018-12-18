@@ -20,8 +20,8 @@ public class AuthorizationSteps extends BaseStep {
     public AuthorizationSteps(Context context){
         super(context);
         LOGGER.debug("AuthorizationSteps is created");
-        authorizationPage = context.getPageObjectManager().getAuthorizationPage();
-        homePage = context.getPageObjectManager().getHomePage();
+        authorizationPage = new AuthorizationPage(getDriver());
+        homePage = new HomePage(getDriver());
     }
 
     @Given("^login to mail$")
@@ -37,7 +37,7 @@ public class AuthorizationSteps extends BaseStep {
     }
 
     @Then("^login \"([^\"]*)\" missing on screen$")
-    public void loginMissingOnScreen(String arg0) throws Throwable{
+    public void loginMissingOnScreen(String arg0){
         homePage.getToGetMail().isDisplayed();
     }
 }

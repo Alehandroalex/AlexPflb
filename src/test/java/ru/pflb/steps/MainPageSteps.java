@@ -25,19 +25,21 @@ public class MainPageSteps extends BaseStep {
     public MainPageSteps(Context context){
         super(context);
         LOGGER.debug("MainPageSteps is created");
-        mainPage = context.getPageObjectManager().getMainPage();
+        mainPage = new MainPage(getDriver());
     }
 
     @And("^create letter \"([^\"]*)\"$")
-    public void createLetter(String letterAlias) throws Throwable{
+    public void createLetter(String letterAlias){
         mainPage.getWriteLetterButton().click();
         context.addLetter(letterAlias, new Letter());
     }
 
     @And("^open drafts' page$")
-    public void openDraftsPage() throws Throwable{
+    public void openDraftsPage(){
         mainPage.draft.click();
-        if(mainPage.saveWindow.isDisplayed()){mainPage.saveAndGo.click();}
+        if(mainPage.saveWindow.isDisplayed()){
+            mainPage.saveAndGo.click();
+        }
     }
 
     @When("^click drafts' page$")
@@ -46,7 +48,7 @@ public class MainPageSteps extends BaseStep {
     }
 
     @Then("^wait for appearance of letter \"([^\"]*)\"$")
-    public void waitForAppearanceOfLetter(String letterAlias) throws Throwable{
+    public void waitForAppearanceOfLetter(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
         do{
             mainPage.refresh.click();
@@ -55,7 +57,7 @@ public class MainPageSteps extends BaseStep {
     }
 
     @Then("^should be letter \"([^\"]*)\"$")
-    public void shouldBeLetter(String letterAlias) throws Throwable{
+    public void shouldBeLetter(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
         assertThat(String.format("Отсутствует письмо с темой '%s'", letter.getTopic()),
                 mainPage.hasRowLetterWithTopic(letter.getTopic()), equalTo(true));
@@ -65,29 +67,29 @@ public class MainPageSteps extends BaseStep {
     }
 
     @When("^open the letter \"([^\"]*)\"$")
-    public void openTheLetter(String letterAlias) throws Throwable{
+    public void openTheLetter(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
         mainPage.getRowLetterByTopic(letter.getTopic()).open();
     }
 
 
     @And("^recipient should starts with \"([^\"]*)\"$")
-    public void recipientStartsTo(String recipient) throws Throwable{
+    public void recipientStartsTo(String recipient){
         assertThat(recipient, startsWith(mainPage.recipient.getText()));
     }
 
     @And("^topic should starts with \"([^\"]*)\"$")
-    public void topicStartsWith(String topic) throws Throwable{
+    public void topicStartsWith(String topic){
         assertThat(mainPage.topic.getText(), equalTo(topic));
     }
 
     @And("^body should starts with \"([^\"]*)\"$")
-    public void bodyEqualsTo(String body) throws Throwable{
+    public void bodyEqualsTo(String body){
         assertThat(body, startsWith(mainPage.body.getText()));
     }
 
     @And("^delete the letter \"([^\"]*)\"$")
-    public void deleteTheLetter(String letterAlias) throws Throwable{
+    public void deleteTheLetter(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
         RowOfLetter letterRow = mainPage.getRowLetterByTopic(letter.getTopic());
         letterRow.getCheckBox().click();
@@ -100,12 +102,12 @@ public class MainPageSteps extends BaseStep {
     }
 
     @Then("^should appears the text \"([^\"]*)\"$")
-    public void shouldAppearsTheText(String text) throws Throwable{
+    public void shouldAppearsTheText(String text){
         mainPage.getElementWithText(text).isDisplayed();
     }
 
     @When("^open send's page$")
-    public void openSendSPage() throws Throwable{
+    public void openSendSPage(){
         mainPage.sent.click();
     }
 

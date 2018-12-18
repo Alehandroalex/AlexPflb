@@ -16,11 +16,11 @@ public class HomePageSteps extends BaseStep {
     public HomePageSteps(Context context){
         super(context);
         LOGGER.debug("HomePageSteps is created");
-        homePage = context.getPageObjectManager().getHomePage();
+        homePage = new HomePage(getDriver());
     }
 
     @Then("^should be button \"([^\"]*)\"$")
-    public void shouldBeButton(String arg0) throws Throwable{
+    public void shouldBeButton(String arg0){
         homePage.getToGetMail().isDisplayed();
     }
 

@@ -23,6 +23,7 @@ public class Hooks extends BaseStep {
     @Before
     public void setUp(){
         System.setProperty("webdriver.gecko.driver", Hooks.class.getResource("../geckodriver.exe").getFile());
+        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "selenium_log.log");
         WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         context.setDriver(driver);
@@ -32,10 +33,5 @@ public class Hooks extends BaseStep {
     public void tearDown(){
         getDriver().quit();
     }
-
-//    @And("^wait \"([^\"]*)\" seconds$")
-//    public void waitSeconds(int wait) throws Throwable{
-//        TimeUnit.SECONDS.sleep(wait);
-//    }
 
 }
