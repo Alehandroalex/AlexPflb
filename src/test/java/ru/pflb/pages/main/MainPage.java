@@ -65,10 +65,6 @@ public class MainPage extends PageObject {
                 + "-User-Name")));
     }
 
-    public WebElement getElementWithText(String text){
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[contains(text(), '%s')]", text))));
-    }
-
     private By getByLetterByTopic(String topic){
         return By.xpath(String.format("//div[contains(@class," + "'js-messages-list')]/div[descendant::span[text()" + "='%s']]", topic));
     }

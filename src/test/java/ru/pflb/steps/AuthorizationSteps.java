@@ -1,7 +1,6 @@
 package ru.pflb.steps;
 
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.pflb.pages.AuthorizationPage;
@@ -34,10 +33,5 @@ public class AuthorizationSteps extends BaseStep {
         }
         authorizationPage.setPassword(Configuration.PASSWORD);
         authorizationPage.enter.click();
-    }
-
-    @Then("^login \"([^\"]*)\" missing on screen$")
-    public void loginMissingOnScreen(String arg0){
-        homePage.getToGetMail().isDisplayed();
     }
 }

@@ -19,17 +19,13 @@ public class AuthorizationPage extends PageObject {
     public WebElement enterButton;
 
     @FindBy(name = "login")
-    public WebElement loginField;
+    private WebElement loginField;
 
     @FindBy(xpath = "//span[text()='Войти']")
     public WebElement enter;
 
     @FindBy(name = "passwd")
     public WebElement passwordField;
-
-    public WebElement getPasswordField(){
-        return (new WebDriverWait(driver, 30)).until(elementToBeClickable(name("passwd")));
-    }
 
     public void setLogin(String login){
         loginField.sendKeys(login);

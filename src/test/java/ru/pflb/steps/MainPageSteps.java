@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import ru.pflb.models.Letter;
+import ru.pflb.pages.HomePage;
 import ru.pflb.pages.main.MainPage;
 import ru.pflb.pages.main.RowOfLetter;
 import ru.pflb.tech.konfiguratin.Configuration;
@@ -21,6 +22,7 @@ public class MainPageSteps extends BaseStep {
     private static final Logger LOGGER = LogManager.getLogger(MainPageSteps.class);
 
     private MainPage mainPage;
+    private HomePage homePage;
 
     public MainPageSteps(Context context){
         super(context);
@@ -99,11 +101,6 @@ public class MainPageSteps extends BaseStep {
     @And("^delete the letter in viewer$")
     public void deleteTheLetterInViewer(){
         mainPage.delete.click();
-    }
-
-    @Then("^should appears the text \"([^\"]*)\"$")
-    public void shouldAppearsTheText(String text){
-        mainPage.getElementWithText(text).isDisplayed();
     }
 
     @When("^open send's page$")
