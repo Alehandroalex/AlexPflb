@@ -21,8 +21,8 @@ public class CommonSteps extends BaseStep {
 
     @Then("^should appears the text \"([^\"]*)\"$")
     public void shouldAppearsTheText(String text){
+        //TODO Screenshot
         commonPage.getElementWithText(text).isDisplayed();
     }
-
 
 }

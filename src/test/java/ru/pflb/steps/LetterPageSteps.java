@@ -56,63 +56,73 @@ public class LetterPageSteps extends BaseStep {
     @Then("^recipients in editor should be as in \"([^\"]*)\"$")
     public void recipientsInEditorShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected recipient of letter: '{}', actual recipient of letter: '{}'", letterEditorPage.getRecipients(), letter.getRecipientList().toArray());
         assertThat(letterEditorPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
     }
 
     @And("^topic in editor should be as in \"([^\"]*)\"$")
     public void topicInEditorShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected topic of letter: '{}', actual topic of letter: '{}'", letterEditorPage.topicField.getText(), letter.getTopic());
         assertThat(letterEditorPage.topicField.getAttribute("value"), equalTo(letter.getTopic()));
     }
 
     @And("^body in editor should be as in \"([^\"]*)\"$")
     public void bodyInEditorShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected body of letter: '{}', actual body of letter: '{}'", letterEditorPage.bodyField.getText(), letter.getBody());
         assertThat(letterEditorPage.bodyField.getAttribute("value"), startsWith(letter.getBody()));
     }
 
     @Then("^recipients in viewer should be as in \"([^\"]*)\"$")
     public void recipientsInViewerShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
-        LOGGER.info("Expected letter: '{}', send letter: '{}'", letterViewerPage.getRecipients(), letter.getRecipientList().toArray());
+        LOGGER.info("Expected recipient of letter: '{}', actual recipient of letter: '{}'", letterViewerPage.getRecipients(), letter.getRecipientList().toArray());
         assertThat(letterViewerPage.getRecipients(), containsInAnyOrder(letter.getRecipientList().toArray()));
     }
 
     @And("^topic in viewer should be as in \"([^\"]*)\"$")
     public void topicInViewerShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected topic of letter: '{}', actual topic of letter: '{}'", letterViewerPage.topic.getText(), letter.getTopic());
         assertThat(letterViewerPage.topic.getText(), equalTo(letter.getTopic()));
     }
 
     @And("^body in viewer should be as in \"([^\"]*)\"$")
     public void bodyInViewerShouldBeAsIn(String letterAlias){
         Letter letter = context.getLetter(letterAlias);
+        LOGGER.info("Expected body of letter: '{}', actual body of letter: '{}'", letterViewerPage.body.getText(), letter.getBody());
         assertThat(letterViewerPage.body.getText(), equalTo(letter.getBody()));
     }
 
     @Then("^close the letter$")
     public void closeTheLetter(){
+        //TODO Screenshot
         letterEditorPage.closeLetter.click();
     }
 
 
     @And("^send the letter$")
     public void sendTheLetter(){
+        //TODO Screenshot
         letterEditorPage.sentLetter.click();
     }
 
     @When("^recipient should equals to \"([^\"]*)\"$")
     public void recipientShouldEqualsTo(String recipient){
+        LOGGER.info("Expected recipient: '{}', actual recipient of letter: '{}'", recipient, letterEditorPage.recipientField.getText());
         assertEquals(recipient, letterEditorPage.recipientField.getText());
     }
 
     @And("^topic should equals to \"([^\"]*)\"$")
     public void topicShouldEqualsTo(String topic){
+        LOGGER.info("Expected topic of letter: '{}', actual topic of letter: '{}'", topic, letterEditorPage.topicField.getText());
         assertEquals(topic, letterEditorPage.topicField.getText());
     }
 
     @And("^body should equals to \"([^\"]*)\"$")
     public void bodyShouldEqualsTo(String body){
+        LOGGER.info("Expected body of letter: '{}', actual body of letter: '{}'", body, letterEditorPage.bodyField.getText());
         assertEquals(body, letterEditorPage.bodyField.getText());
     }
 
