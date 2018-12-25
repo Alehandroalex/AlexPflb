@@ -1,44 +1,37 @@
 package ru.pflb.steps;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.pflb.pages.AuthorizationPage;
-import ru.pflb.tech.BaseStep;
-import ru.pflb.tech.Context;
+import ru.pflb.pages.HomePage;
+import ru.pflb.tech.konfiguratin.Configuration;
+import ru.pflb.tech.step.BaseStep;
+import ru.pflb.tech.step.Context;
 
 public class AuthorizationSteps extends BaseStep {
 
-    AuthorizationPage authorizationPage;
+    private static final Logger LOGGER = LogManager.getLogger(AuthorizationSteps.class);
+
+    private AuthorizationPage authorizationPage;
+    private HomePage homePage;
 
     public AuthorizationSteps(Context context){
         super(context);
-        authorizationPage = context.getPageObjectManager().getAuthorizationPage();
+        LOGGER.debug("AuthorizationSteps is created");
+        authorizationPage = new AuthorizationPage(getDriver());
+        homePage = new HomePage(getDriver());
     }
 
-    @Given("^go to \"([^\"]*)\"$")
-    public void goTo(String url) throws Throwable{
-        getDriver().get(url);
-    }
-
-    @When("^click button enter$")
-    public void clickButtonEnter() throws Throwable{
+    @Given("^login to mail$")
+    public void loginToMail(){
+        homePage.open();
         authorizationPage.enterButton.click();
+        authorizationPage.setLogin(Configuration.LOGIN);
+        if(! authorizationPage.passwordField.isDisplayed()){
+            authorizationPage.enter.click();
+        }
+        authorizationPage.setPassword(Configuration.PASSWORD);
+        authorizationPage.enter.click();
     }
-
-    @And("^write login \"([^\"]*)\"$")
-    public void writeLogin(String login) throws Throwable{
-        authorizationPage.loginField.sendKeys(login);
-    }
-
-    @And("^write password \"([^\"]*)\"$")
-    public void writePassword(String password) throws Throwable{
-        authorizationPage.passwordField.sendKeys(password);
-    }
-
-    @And("^click button enter to mail$")
-    public void clickButtonEnterToMail() throws Throwable{
-        authorizationPage.enterToMail.click();
-    }
-
 }

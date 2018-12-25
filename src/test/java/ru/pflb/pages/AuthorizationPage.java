@@ -3,11 +3,13 @@ package ru.pflb.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.pflb.PageObject;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.pflb.tech.page.PageObject;
+
+import static org.openqa.selenium.By.name;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class AuthorizationPage extends PageObject {
-
-    public AuthorizationPage(){}
 
     public AuthorizationPage(WebDriver driver){
         super(driver);
@@ -17,11 +19,20 @@ public class AuthorizationPage extends PageObject {
     public WebElement enterButton;
 
     @FindBy(name = "login")
-    public WebElement loginField;
+    private WebElement loginField;
+
+    @FindBy(xpath = "//span[text()='Войти']")
+    public WebElement enter;
 
     @FindBy(name = "passwd")
     public WebElement passwordField;
 
-    @FindBy(css = "span.passport-Button-Text")
-    public WebElement enterToMail;
+    public void setLogin(String login){
+        loginField.sendKeys(login);
+    }
+
+    public void setPassword(String password){
+        new WebDriverWait(driver, 30).until(elementToBeClickable(name("passwd"))).sendKeys(password);
+    }
+
 }
