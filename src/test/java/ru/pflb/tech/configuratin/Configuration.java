@@ -1,4 +1,4 @@
-package ru.pflb.tech.konfiguratin;
+package ru.pflb.tech.configuratin;
 
 public class Configuration {
     public static final String URL = System.getProperty("url");
