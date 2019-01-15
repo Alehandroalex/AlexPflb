@@ -1,5 +1,6 @@
 Feature: Authorization
 
+  @SmokeTest
   Scenario: Authorization
     When login to mail
     Then user's login should be correct
