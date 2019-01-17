@@ -34,8 +34,8 @@ public class MainPageSteps extends BaseStep {
         context.addLetter(letterAlias, new Letter());
     }
 
-    @And("^open drafts' page$")
-    public void openDraftsPage(){
+    @And("^open the drafts' page$")
+    public void openTHeDraftsPage(){
         mainPage.draft.click();
         //TODO Screenshot
         if(mainPage.saveWindow.isDisplayed()){
@@ -110,8 +110,8 @@ public class MainPageSteps extends BaseStep {
         mainPage.delete.click();
     }
 
-    @When("^open send's page$")
-    public void openSendSPage(){
+    @When("^open the page of sent letters$")
+    public void openThePageOfSentLetters(){
         //TODO Screenshot
         mainPage.sent.click();
     }
