@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import ru.pflb.models.Letter;
 import ru.pflb.pages.main.MainPage;
 import ru.pflb.pages.main.RowOfLetter;
-import ru.pflb.tech.configuratin.Configuration;
+import ru.pflb.tech.configuration.Configuration;
 import ru.pflb.tech.step.BaseStep;
 import ru.pflb.tech.step.Context;
 

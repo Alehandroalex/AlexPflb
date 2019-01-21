@@ -21,7 +21,7 @@ public class AuthorizationPage extends PageObject {
     @FindBy(name = "login")
     private WebElement loginField;
 
-    @FindBy(xpath = "//span[text()='Войти']")
+    @FindBy(xpath = "//button[child::span[text()='Войти']]")
     public WebElement enter;
 
     @FindBy(name = "passwd")
