@@ -23,7 +23,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static ru.pflb.tech.configuration.Configuration.BROWSER;
 import static ru.pflb.tech.configuration.Configuration.SELENIUM_HUB_URL;
 
 public class Hooks extends BaseStep {
@@ -43,7 +42,7 @@ public class Hooks extends BaseStep {
         if(Configuration.USE_SELENIUM_GRID){
             URL seleniumHubUrl = new URL(SELENIUM_HUB_URL);
             Capabilities capabilities;
-            switch(BROWSER){
+            switch(Configuration.getBrowser()){
                 case CHROME:
                     capabilities = new ChromeOptions();
                     break;
@@ -61,7 +60,7 @@ public class Hooks extends BaseStep {
             }
             driver = new RemoteWebDriver(seleniumHubUrl, capabilities);
         } else{
-            switch(BROWSER){
+            switch(Configuration.getBrowser()){
                 case CHROME:
                     System.setProperty("webdriver.chrome.driver",
                             Hooks.class.getResource("../chromedriver.exe").getFile());
