@@ -28,7 +28,8 @@ public class AuthorizationSteps extends BaseStep {
         homePage.open();
         authorizationPage.enterButton.click();
         authorizationPage.setLogin(Configuration.LOGIN);
-        if(! authorizationPage.passwordField.isDisplayed()){
+        takeScreenshot();
+        if(! authorizationPage.isPresentPasswordField()){
             authorizationPage.enter.click();
         }
         authorizationPage.setPassword(Configuration.PASSWORD);

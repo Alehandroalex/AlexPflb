@@ -13,6 +13,7 @@ public class Configuration {
     public static final String URL = System.getProperty("url");
     public static final String LOGIN = System.getProperty("login");
     public static final String PASSWORD = System.getProperty("password");
+    public static final String TEST_ATTACHMENTS_FOLDER = "target/testAttachmentsFolder";
 
     public static void setBrowser(String browser){
         setBrowser(Browser.getByName(browser));
